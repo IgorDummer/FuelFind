@@ -1,24 +1,6 @@
 import { StyleSheet } from 'react-native';
-
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
-
-const data = [
-  {
-    id: '1',
-    name: 'Posto ipiranaobaga',
-  },
-  {
-   name: 'teste 123',
-  },{
-    
-  },{
-    
-  },{
-    
-  },
-]
-
 
 export default function TabOneScreen() {
   return (
