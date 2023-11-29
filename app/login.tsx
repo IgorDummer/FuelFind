@@ -6,7 +6,9 @@ export default function LoginForm(){
         <View>
             <TextInput
                 placeholder='E-mail'
+
             />
+            <TextInput> </TextInput>
         </View>
 
     )
