@@ -17,17 +17,24 @@ export default function TabTwoScreen() {
       </View>
      
       <View style={styles.container_login}>
+        <Text style={styles.title_text}>
+          ENTRAR
+        </Text>
         <TextInput style={styles.input}
           placeholder='Usuário ou e-mail'
         />
         <TextInput style={styles.input}
           placeholder='Senha'
         />
-        <Button 
-          title = 'Entrar'      
-          color={'#122209'} 
-          //onPress={handleLogin}
-        />
+        <View style={{ marginTop: 15 }}>
+          <Button 
+            title = 'Entrar'      
+            color={'#122209'}
+          
+            //onPress={handleLogin}
+          />
+        </View>
+
 
         <TouchableOpacity>
           <Text style={styles.text}>Esqueci minha senha</Text>
@@ -53,10 +60,15 @@ const styles = StyleSheet.create({
   },
   container_title: {
     flexDirection: 'row',
-    flex: 1,
+    flex: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#1B4203",
+  },
+  title_text: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 20
   },
   container_login: {
     flex: 1,
@@ -65,7 +77,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '150%',
-    marginBottom: 15,
+    marginBottom: 8,
+    marginTop: 8,
     borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -76,6 +89,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white', // Cor da linha
   },
   text: {
-    marginTop: 20
+    marginTop: 15
   }
 });

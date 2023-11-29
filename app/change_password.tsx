@@ -18,23 +18,17 @@ export default function TabTwoScreen() {
      
       <View style={styles.container_login}>
         <Text style={styles.title_text}>
-          CADASTRE-SE
+          ALTERAR SENHA
         </Text>
         <TextInput style={styles.input}
-          placeholder='Nome'
+          placeholder='Nova senha'
         />
         <TextInput style={styles.input}
-          placeholder='Usuário'
-        />
-        <TextInput style={styles.input}
-          placeholder='E-mail'
-        />
-        <TextInput style={styles.input}
-          placeholder='Senha'
+          placeholder='Repita a senha'
         />
         <View style={{ marginTop: 15 }}>
           <Button 
-            title = 'CRIAR CONTA'      
+            title = 'SALVAR'      
             color={'#122209'}
           
             //onPress={handleLogin}
