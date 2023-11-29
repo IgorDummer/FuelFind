@@ -6,10 +6,10 @@ import { Text, View } from '../../components/Themed';
 const data = [
   {
     id: '1',
-    name: 'Posto ipiranga',
+    name: 'Posto ipiranaobaga',
   },
   {
-    
+   name: 'teste 123',
   },{
     
   },{
@@ -23,7 +23,7 @@ const data = [
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mancomunado</Text>
+      <Text style={styles.title}>Mancomunado Sim</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="app/(tabs)/index.tsx" />
     </View>
