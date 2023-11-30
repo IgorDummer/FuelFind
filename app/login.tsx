@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'white', // Cor da linha
   },
   text: {
-    marginTop: 15
+    marginTop: 15,
+    textDecorationLine: 'underline'
   }
 });
