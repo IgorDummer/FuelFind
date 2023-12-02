@@ -69,7 +69,7 @@ export default function TabTwoScreen() {
             <View style={styles.car_name}>
               <Text style={styles.car_name_text}>COROLLA</Text>
               <View style={styles.car_name_icons}>
-                <TouchableOpacity>
+                <TouchableOpacity /*onPress={}*/>
                   <Image style={styles.icons} source={require ('../../assets/images/edit.svg')} ></Image>
                 </TouchableOpacity>
                 <TouchableOpacity>
