@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, Modal, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { Searchbar, Checkbox, Button, IconButton } from 'react-native-paper';
+import { StyleSheet, Image, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { IconButton } from 'react-native-paper';
 import { Text, View } from '../../components/Themed';
-import enumFuelTypes from '../../utils/enumFuelTypes';
-import { Svg, Path } from 'react-native-svg';
 import { FlatList } from 'react-native-gesture-handler';
+
+import PostoCard from '../../components/PostoCard';
+import FuelFilterModal from '../../components/FuelFilterModal';
 
 //Exemplo de json a ser recebido pelo backend
 
@@ -34,16 +35,6 @@ const postos = [
         id: 2,
         tipo: 'Gasolina Aditivada',
         preco: 5.50,
-      },
-      {
-        id: 3,
-        tipo: 'Diesel S10',
-        preco: 4.00,
-      },
-      {
-        id: 4,
-        tipo: 'Diesel S500',
-        preco: 3.50,
       },
       {
         id: 6,
@@ -84,16 +75,6 @@ const postos = [
         tipo: 'Diesel S500',
         preco: 3.50,
       },
-      {
-        id: 5,
-        tipo: 'GNV',
-        preco: 3.00,
-      },
-      {
-        id: 6,
-        tipo: 'Etanol',
-        preco: 3.00,
-      },
     ],
     upVotes: 10,
     downVotes: 3,
@@ -128,16 +109,6 @@ const postos = [
         tipo: 'Diesel S10',
         preco: 4.00,
       },
-      {
-        id: 5,
-        tipo: 'GNV',
-        preco: 3.00,
-      },
-      {
-        id: 6,
-        tipo: 'Etanol',
-        preco: 3.00,
-      },
     ],
     upVotes: 20,
     downVotes: 10,
@@ -167,21 +138,6 @@ const postos = [
         tipo: 'Gasolina Aditivada',
         preco: 5.50,
       },
-      {
-        id: 3,
-        tipo: 'Diesel S10',
-        preco: 4.00,
-      },
-      {
-        id: 4,
-        tipo: 'Diesel S500',
-        preco: 3.50,
-      },
-      {
-        id: 5,
-        tipo: 'GNV',
-        preco: 3.00,
-      },
     ],
     upVotes: 16,
     downVotes: 5,
@@ -210,26 +166,6 @@ const postos = [
         id: 2,
         tipo: 'Gasolina Aditivada',
         preco: 5.94,
-      },
-      {
-        id: 3,
-        tipo: 'Diesel S10',
-        preco: 4.00,
-      },
-      {
-        id: 4,
-        tipo: 'Diesel S500',
-        preco: 3.50,
-      },
-      {
-        id: 5,
-        tipo: 'GNV',
-        preco: 3.00,
-      },
-      {
-        id: 6,
-        tipo: 'Etanol',
-        preco: 3.00,
       },
     ],
     upVotes: 10,
@@ -265,85 +201,52 @@ const postos = [
         tipo: 'Diesel S10',
         preco: 4.00,
       },
-      {
-        id: 4,
-        tipo: 'Diesel S500',
-        preco: 3.50,
-      },
-      {
-        id: 5,
-        tipo: 'GNV',
-        preco: 3.00,
-      },
-      {
-        id: 6,
-        tipo: 'Etanol',
-        preco: 3.00,
-      },
     ],
     upVotes: 20,
     downVotes: 10,
   },
 ]
 
-const PostoCard = ({ posto }) => {
-  return (
-    <View style={styles.postoCard}>
-      <View style={styles.postoHeader}>
-        <Text style={styles.postoTitle}>{posto.name.toUpperCase()}</Text>
-        <View style={styles.voteContainer}>
-          <Image
-            style={{ tintColor: '#84CC16', width: 20, height: 20 }}
-            source={require('../../assets/images/arrow_up.svg')}
-          />
-          <Text style={[styles.voteText, { color: '#84CC16', fontWeight: 'bold' }]}>{posto.upVotes}</Text>
-          <Image
-            style={{ tintColor: '#B91C1C', width: 20, height: 20 }}
-            source={require('../../assets/images/arrow_down.svg')}
-          />
-          <Text style={[styles.voteText, { color: '#B91C1C' }]}>{posto.downVotes}</Text>
-        </View>
-      </View>
-      <View style={styles.combustivelRow}>
-        <Text>{posto.combustiveis[0].tipo.toUpperCase()}</Text>
-        <Text>{`R$ ${posto.combustiveis[0].preco.toFixed(2)}`}</Text>
-      </View>
-      <View style={styles.combustivelRow}>
-        <Text>{posto.combustiveis[1].tipo.toUpperCase()}</Text>
-        <Text>{`R$ ${posto.combustiveis[1].preco.toFixed(2)}`}</Text>
-      </View>
-      <View style={styles.addressRow}>
-        <Text>{`${posto.endereco.rua}, ${posto.endereco.numero}, ${posto.endereco.bairro}, ${posto.endereco.cidade}`}</Text>
-      </View>
-    </View>
-  );
-};
-
 export default function TabOneScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedFuelTypes, setSelectedFuelTypes] = useState<string[]>([]);
+  const [tempSelectedFuelTypes, setTempSelectedFuelTypes] = useState<string[]>([]);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
 
   const handleCheckboxToggle = (fuelType: string) => {
-    if (selectedFuelTypes.includes(fuelType)) {
-      setSelectedFuelTypes(selectedFuelTypes.filter((type) => type !== fuelType));
-    } else {
-      setSelectedFuelTypes([...selectedFuelTypes, fuelType]);
-    }
+    const updatedSelections = tempSelectedFuelTypes.includes(fuelType)
+      ? tempSelectedFuelTypes.filter((type) => type !== fuelType)
+      : [...tempSelectedFuelTypes, fuelType];
+
+    setTempSelectedFuelTypes(updatedSelections);
   };
 
   const handleFilter = () => {
-    console.log('Tipos de combustíveis selecionados:', selectedFuelTypes);
+    console.log('Tipos de combustíveis selecionados:', tempSelectedFuelTypes);
+    setSelectedFuelTypes(tempSelectedFuelTypes);
     closeModal();
   };
-
   // Função para renderizar os cards dos postos
   const renderPostoCards = () => {
+    if (selectedFuelTypes.length === 0) {
+      return (
+        <FlatList
+          data={postos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <PostoCard posto={item} />}
+        />
+      );
+    }
+
+    const filteredPostos = postos.filter(posto =>
+      posto.combustiveis.some(combustivel => selectedFuelTypes.includes(combustivel.tipo))
+    );
+
     return (
       <FlatList
-        data={postos}
+        data={filteredPostos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <PostoCard posto={item} />}
       />
@@ -373,32 +276,13 @@ export default function TabOneScreen() {
         {renderPostoCards()}
       </ScrollView>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={closeModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalHeaderText}>Selecione ao menos um tipo de combustível para pesquisar</Text>
-
-            {Object.values(enumFuelTypes).map((fuelType) => (
-              <View key={fuelType} style={styles.checkboxContainer}>
-                <Checkbox
-                  status={selectedFuelTypes.includes(fuelType) ? 'checked' : 'unchecked'}
-                  onPress={() => handleCheckboxToggle(fuelType)}
-                />
-                <Text style={styles.checkboxLabel}>{fuelType}</Text>
-              </View>
-            ))}
-
-            <Button mode="contained" onPress={handleFilter}>
-              Filtrar
-            </Button>
-          </View>
-        </View>
-      </Modal>
+      <FuelFilterModal
+        modalVisible={modalVisible}
+        closeModal={closeModal}
+        handleCheckboxToggle={handleCheckboxToggle}
+        handleFilter={handleFilter}
+        tempSelectedFuelTypes={tempSelectedFuelTypes}
+      />
     </View>
   );
 }
@@ -515,5 +399,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     backgroundColor: 'none',
+  },
+  buttonContainer: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
+    marginRight: 20,
+    width: 100,
+  },
+  buttonFilter: {
+    backgroundColor: '#84CC16',
+    borderRadius: 8,
   }
 });
