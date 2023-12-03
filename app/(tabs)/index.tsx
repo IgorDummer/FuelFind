@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Image, Modal, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { Searchbar, Checkbox, Button } from 'react-native-paper';
+import { Searchbar, Checkbox, Button, IconButton } from 'react-native-paper';
 import { Text, View } from '../../components/Themed';
 import enumFuelTypes from '../../utils/enumFuelTypes';
 
@@ -34,6 +34,11 @@ export default function TabOneScreen() {
 
       <TouchableWithoutFeedback onPress={openModal}>
         <View style={styles.searchBar}>
+          <IconButton
+            icon='magnify'
+            onPress={openModal}
+            style={styles.iconButton}
+          />
           <Text style={styles.searchText}>Pesquisa por tipo de combustível</Text>
         </View>
       </TouchableWithoutFeedback>
@@ -94,6 +99,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
     margin: 10,
     padding: 10,
     borderWidth: 1,
@@ -127,4 +134,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
   },
+  iconButton: {
+    backgroundColor: 'transparent',
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    marginRight: 10,
+  }
 });
