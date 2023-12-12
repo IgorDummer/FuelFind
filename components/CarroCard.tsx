@@ -5,18 +5,21 @@ import Carro from '../interfaces/Carro';
 
 interface CarroCardProps {
   carro: Carro;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-const CarroCard: React.FC<CarroCardProps> = ({ carro }) => {
+const CarroCard: React.FC<CarroCardProps> = ({ carro, onEdit, onDelete }) => {
+
     return (
         <View style={styles.car_section}>
         <View style={styles.car_name}>
           <Text style={styles.car_name_text}>{carro.name.toUpperCase()}</Text>
           <View style={styles.car_name_icons}>
-            <TouchableOpacity /*onPress={}*/>
+            <TouchableOpacity onPress={onEdit}>
               <Image style={styles.icons} source={require ('../assets/images/edit.svg')} ></Image>
             </TouchableOpacity>
-            <TouchableOpacity /*onPress={}*/>
+            <TouchableOpacity onPress={onDelete}>
               <Image style={styles.icons} source={require ('../assets/images/delete.svg')} ></Image>
             </TouchableOpacity>
           </View>

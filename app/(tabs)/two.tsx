@@ -4,8 +4,9 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { TextInput } from 'react-native-gesture-handler';
 import CarroCard from '../../components/CarroCard';
+import { useState } from 'react';
 
-const carros = [
+const carrosMock = [
   {
     id: 1,
     name: 'celta',
@@ -26,19 +27,36 @@ const carros = [
   }
 ]
 
+
 export default function TabTwoScreen() {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
+
+  const [carros, setCarros] = useState(carrosMock);
+
+  const handleEdit = (carroId: number) => {
+    // Implemente a lógica de edição aqui
+    console.log('Editar carro com ID:', carroId);
+  };
+
+  const handleDelete = (carroId: number) => {
+    const updatedCarros = carros.filter(carro => carro.id !== carroId);
+    
+    // Atualizar o estado com a nova lista de carros
+    setCarros(updatedCarros);
+  };
   const renderCarroCards = () => {
       return (
         <FlatList
           data={carros}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <CarroCard carro={item} />}
+          renderItem={({ item }) => 
+          <CarroCard carro={item} onEdit={() => handleEdit(item.id)} onDelete={() => handleDelete(item.id)} />}
         />
       );
     };
-
-    
-  
 
   return (
     <>
@@ -101,8 +119,8 @@ export default function TabTwoScreen() {
         <Text style={styles.title}>MEUS CARROS</Text>
         
         <ScrollView style={styles.maxWidth}>
-        {renderCarroCards()}
-      </ScrollView>
+          {renderCarroCards()}
+        </ScrollView>
 
         <View style={{ marginTop: 15, marginBottom: 15 }}>
           <Button 
