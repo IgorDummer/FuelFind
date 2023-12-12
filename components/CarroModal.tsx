@@ -1,41 +1,81 @@
-import React from 'react';
-import { StyleSheet, Modal, View, Text } from 'react-native';
-import { Checkbox, Button } from 'react-native-paper';
-import enumFuelTypes from '../utils/enumFuelTypes';
+import React, { FC, useState } from 'react';
+import { StyleSheet, View, Text, Modal, TextInput, TouchableOpacity, Button } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
-interface CarroModalProps {
-  modalVisible: boolean;
-  closeModal: () => void;
-  handleFuelChoice: (fuelType: string) => void;
-  handleFilter: () => void;
-  tempSelectedFuelTypes: string[];
+interface CarFormModalProps {
+  isVisible: boolean;
+  onClose: () => void;
 }
 
-const CarroModal: React.FC<CarroModalProps> = ({
-  modalVisible,
-  closeModal,
-  handleFuelChoice,
-  handleFilter,
-  tempSelectedFuelTypes,
-}) => {
+const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose }) => {
+  const [carName, setCarName] = useState('');
+  const [fuelType, setFuelType] = useState('');
+  const [fuelConsumption, setFuelConsumption] = useState('');
+
+  const handleSave = () => {
+    // Lógica para salvar os dados (por exemplo, chamando uma função do componente pai)
+    // e fechar o modal.
+    // Você pode passar os dados para o componente pai usando uma função de callback.
+    // onClose({ carName, fuelType, fuelConsumption });
+  };
+
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={closeModal}
-    >
+    <Modal visible={isVisible}>
+
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalHeaderText}>Informe os dados do seu veículo</Text>
 
-
-
-          <View style={styles.buttonContainer}>
-            <Button mode="contained" onPress={handleFilter} style={styles.buttonFilter}>
-              Filtrar
-            </Button>
+          <View style={styles.large_inputs_view}>
+            <TextInput style={styles.large_input}
+              placeholder="Nome do Carro"
+              value={carName}
+              onChangeText={(text) => setCarName(text)}
+            />
           </View>
+
+          <View style={styles.small_inputs_view}>
+            <View style={styles.small_input}>
+              <RNPickerSelect
+                placeholder={{ label: 'Tipo de combustível', value: null }}
+                onValueChange={(value) => setFuelType(value)}
+                items={[
+                  { label: 'Gasolina Comum', value: 'GASOLINA_COMUM' },
+                  { label: 'Gasolina Aditivada', value: 'GASOLINA_ADITIVADA' },
+                  { label: 'Diesel S10', value: 'DIESEL_S10' },
+                  { label: 'Diesel S500', value: 'DIESEL_S500' },
+                  { label: 'GNV', value: 'GNV' },
+                  { label: 'Etanol', value: 'ETANOL' }
+                  // Adicione outros tipos de combustíveis conforme necessário.
+                ]}
+              />
+            </View>
+            <View style={styles.small_input}>
+              <TextInput
+                placeholder="Kilômetros / litro"
+                value={fuelConsumption}
+                keyboardType="numeric"
+                onChangeText={(text) => setFuelConsumption(text)}
+              />
+            </View>
+          </View>
+          
+          <View style={{ marginTop: 15, marginBottom: 15 }}>
+            <Button 
+              title = 'SALVAR'      
+              color={'#122209'}
+              onPress={handleSave}
+            />
+          </View>
+          <View style={{ marginTop: 15, marginBottom: 15 }}>
+            <Button 
+              title = 'FECHAR'      
+              color={'#122209'}
+              onPress={onClose}
+            />
+          </View>
+
+
         </View>
       </View>
     </Modal>
@@ -57,32 +97,41 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
   },
-  checkboxContainer: {
-    flexDirection: 'row',
+  large_inputs_view: {
     alignItems: 'center',
-    marginBottom: 10,
+    justifyContent: 'center',
+    backgroundColor: 'white'
   },
-  checkboxLabel: {
-    marginLeft: 10,
-    fontSize: 16,
+  large_input: {
+    width: '100%',
+    marginBottom: 8,
+    marginTop: 8,
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    padding: 5,
+    borderBottomWidth: 1.5,
+    borderBottomColor: 'black'
   },
-  iconButton: {
-    backgroundColor: 'transparent',
-    width: 20,
-    height: 20,
-    borderRadius: 50,
-    marginRight: 10,
+  small_inputs_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
-  buttonContainer: {
-    alignSelf: 'flex-end',
-    marginTop: 10,
-    marginRight: 20,
-    width: 100,
-  },
-  buttonFilter: {
-    backgroundColor: '#84CC16',
-    borderRadius: 8,
+  small_input: {
+    width: '45%',
+    marginBottom: 8,
+    marginTop: 8,
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    padding: 5,
+    borderBottomWidth: 1.5,
+    borderBottomColor: 'black'
   }
-});
+})
 
-export default CarroModal;
+export default CarFormModal;

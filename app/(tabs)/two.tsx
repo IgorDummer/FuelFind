@@ -5,6 +5,7 @@ import { Text, View } from '../../components/Themed';
 import { TextInput } from 'react-native-gesture-handler';
 import CarroCard from '../../components/CarroCard';
 import { useState } from 'react';
+import CarFormModal from '../../components/CarroModal';
 
 const carrosMock = [
   {
@@ -30,7 +31,7 @@ const carrosMock = [
 
 export default function TabTwoScreen() {
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
 
@@ -110,7 +111,6 @@ export default function TabTwoScreen() {
             //onPress={}
           />
         </View>
-  
       </View>
 
       {/* SEÇÃO MEUS CARROS */}
@@ -126,10 +126,10 @@ export default function TabTwoScreen() {
           <Button 
             title = 'ADICIONAR CARRO'      
             color={'#122209'}
-            //onPress={}
+            onPress={openModal}
           />
         </View>
-
+        <CarFormModal isVisible={isModalVisible} onClose={closeModal} />
 
       </View>
 

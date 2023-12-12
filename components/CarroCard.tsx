@@ -35,7 +35,7 @@ const CarroCard: React.FC<CarroCardProps> = ({ carro, onEdit, onDelete }) => {
   const styles = StyleSheet.create({
     car_section:{
         backgroundColor: '#F5F5F4',
-        width: '85%',
+        //width: '85%',
         padding: 10,
         margin: 10,
         borderRadius: 10
