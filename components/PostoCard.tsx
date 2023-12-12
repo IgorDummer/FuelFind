@@ -5,11 +5,12 @@ import Posto from '../interfaces/Posto';
 
 interface PostoCardProps {
   posto: Posto;
+  onClick?: () => void;
 }
 
-const PostoCard: React.FC<PostoCardProps> = ({ posto }) => {
+const PostoCard: React.FC<PostoCardProps> = ({ posto, onClick }) => {
   return (
-    <View style={styles.postoCard}>
+    <View style={styles.postoCard} onTouchEnd={onClick}>
       <View style={styles.postoHeader}>
         <Text style={styles.postoTitle}>{posto.name.toUpperCase()}</Text>
         <View style={styles.voteContainer}>

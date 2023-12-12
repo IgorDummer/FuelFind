@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback, ScrollView, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { Text, View } from '../../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
 
 import PostoCard from '../../components/PostoCard';
 import FuelFilterModal from '../../components/FuelFilterModal';
+
+import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 //Exemplo de json a ser recebido pelo backend
 
@@ -215,6 +218,8 @@ export default function TabOneScreen() {
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
 
+  const router = useRouter();
+
   const handleCheckboxToggle = (fuelType: string) => {
     const updatedSelections = tempSelectedFuelTypes.includes(fuelType)
       ? tempSelectedFuelTypes.filter((type) => type !== fuelType)
@@ -235,7 +240,11 @@ export default function TabOneScreen() {
         <FlatList
           data={postos}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <PostoCard posto={item} />}
+          renderItem={({ item }) => (
+            <PostoCard posto={item}
+              onClick={() => router.push(`/postoPage/${item.id}`)}
+            />
+          )}
         />
       );
     }
