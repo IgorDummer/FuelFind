@@ -6,25 +6,14 @@ import { TextInput } from 'react-native-gesture-handler';
 import CarroCard from '../../components/CarroCard';
 import { useState } from 'react';
 import CarFormModal from '../../components/CarroModal';
+import Carro from '../../interfaces/Carro';
 
 const carrosMock = [
   {
     id: 1,
-    name: 'celta',
-    combustivel: 'Gasolina Comum',
-    consumo: 7,
-  },
-  {
-    id: 2,
-    name: 'corolla',
-    combustivel: 'Gasolina Aditivada',
-    consumo: 8,
-  },
-  {
-    id: 3,
-    name: 'hilux',
-    combustivel: 'Diesel S500',
-    consumo: 7,
+    name: 'CELTA',
+    combustivel: 'GNV',
+    consumo: 10,
   }
 ]
 
@@ -32,14 +21,73 @@ const carrosMock = [
 export default function TabTwoScreen() {
 
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
-
   const [carros, setCarros] = useState(carrosMock);
+  const [newCar, setNewCar] = useState<Carro>({
+    id: 0,
+    name: '',
+    combustivel: '',
+    consumo: 0,
+  });
+  const [editedCar, setEditedCar] = useState<Carro | null>(null);
+
+  const openModal = () => {
+    setModalVisible(true);
+    // Se editedCar não for nulo, preencha os dados no formulário
+    if (editedCar) {
+      setNewCar(editedCar);
+    }
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+    setNewCar({
+      id: 0,
+      name: '',
+      combustivel: '',
+      consumo: 0,
+    });
+    setEditedCar(null);
+  };
+
+  const handleAddCar = () => {
+    if (newCar.name && newCar.combustivel && newCar.consumo > 0) {
+      const updatedCarros = [...carros];
+      
+      if (editedCar) {
+        // Editando um carro existente
+        const index = updatedCarros.findIndex((carro) => carro.id === editedCar.id);
+        if (index !== -1) {
+          updatedCarros[index] = { ...newCar, id: editedCar.id };
+        }
+      } else {
+        // Adicionando um novo carro
+        const newCarWithId = { ...newCar, id: generateUniqueId() };
+        updatedCarros.push(newCarWithId);
+      }
+      
+      setCarros(updatedCarros);
+      closeModal();
+    } else {
+      // Mostrar uma mensagem de erro ou realizar outra ação de validação
+      console.warn('Preencha todos os campos antes de adicionar o carro.');
+    }
+  };
+
+  // Função para gerar IDs únicos
+  const generateUniqueId = () => {
+    return new Date().getTime(); // Usando timestamp como ID (pode não ser totalmente seguro, mas é simples)
+  };
 
   const handleEdit = (carroId: number) => {
-    // Implemente a lógica de edição aqui
     console.log('Editar carro com ID:', carroId);
+    // Encontrar o carro com o ID correspondente
+    const carToEdit = carros.find((carro) => carro.id === carroId);
+    if (carToEdit) {
+      console.log(carToEdit)
+      // Configurar editedCar para ser usado ao abrir o modal de edição
+      setEditedCar(carToEdit);
+      setNewCar(carToEdit); // Preencher os dados do carro no formulário
+      openModal();
+    }
   };
 
   const handleDelete = (carroId: number) => {
@@ -129,7 +177,17 @@ export default function TabTwoScreen() {
             onPress={openModal}
           />
         </View>
-        <CarFormModal isVisible={isModalVisible} onClose={closeModal} />
+        <CarFormModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        carName={newCar.name}
+        setCarName={(text) => setNewCar({ ...newCar, name: text })}
+        fuelType={newCar.combustivel}
+        setFuelType={(value) => setNewCar({ ...newCar, combustivel: value })}
+        fuelConsumption={newCar.consumo.toString()}
+        setFuelConsumption={(text) => setNewCar({ ...newCar, consumo: parseFloat(text) })}
+        onSave={handleAddCar}
+      />
 
       </View>
 

@@ -5,19 +5,17 @@ import RNPickerSelect from 'react-native-picker-select';
 interface CarFormModalProps {
   isVisible: boolean;
   onClose: () => void;
+  carName: string;
+  setCarName: (text: string) => void;
+  fuelType: string;
+  setFuelType: (value: string) => void;
+  fuelConsumption: string;
+  setFuelConsumption: (text: string) => void;
+  onSave: () => void;
 }
 
-const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose }) => {
-  const [carName, setCarName] = useState('');
-  const [fuelType, setFuelType] = useState('');
-  const [fuelConsumption, setFuelConsumption] = useState('');
-
-  const handleSave = () => {
-    // Lógica para salvar os dados (por exemplo, chamando uma função do componente pai)
-    // e fechar o modal.
-    // Você pode passar os dados para o componente pai usando uma função de callback.
-    // onClose({ carName, fuelType, fuelConsumption });
-  };
+const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose, carName, setCarName, fuelType, setFuelType, fuelConsumption, setFuelConsumption, onSave }) => {
+  
 
   return (
     <Modal visible={isVisible}>
@@ -36,19 +34,26 @@ const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose }) => {
 
           <View style={styles.small_inputs_view}>
             <View style={styles.small_input}>
+                
               <RNPickerSelect
                 placeholder={{ label: 'Tipo de combustível', value: null }}
                 onValueChange={(value) => setFuelType(value)}
                 items={[
-                  { label: 'Gasolina Comum', value: 'GASOLINA_COMUM' },
-                  { label: 'Gasolina Aditivada', value: 'GASOLINA_ADITIVADA' },
-                  { label: 'Diesel S10', value: 'DIESEL_S10' },
-                  { label: 'Diesel S500', value: 'DIESEL_S500' },
+                  { label: 'Gasolina Comum', value: 'Gasolina Comum' },
+                  { label: 'Gasolina Aditivada', value: 'Gasolina Aditivada' },
+                  { label: 'Diesel S10', value: 'Diesel S10' },
+                  { label: 'Diesel S500', value: 'Diesel S500' },
                   { label: 'GNV', value: 'GNV' },
-                  { label: 'Etanol', value: 'ETANOL' }
+                  { label: 'Etanol', value: 'Etanol' }
                   // Adicione outros tipos de combustíveis conforme necessário.
                 ]}
               />
+                {/*
+                <TextInput
+                placeholder="Tipo de combustível"
+                value={fuelType}
+                onChangeText={(text) => setFuelType(text)}
+              />*/}
             </View>
             <View style={styles.small_input}>
               <TextInput
@@ -60,19 +65,22 @@ const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose }) => {
             </View>
           </View>
           
-          <View style={{ marginTop: 15, marginBottom: 15 }}>
-            <Button 
-              title = 'SALVAR'      
-              color={'#122209'}
-              onPress={handleSave}
-            />
-          </View>
-          <View style={{ marginTop: 15, marginBottom: 15 }}>
-            <Button 
-              title = 'FECHAR'      
-              color={'#122209'}
-              onPress={onClose}
-            />
+          <View style={styles.button_view}>
+            <View style={styles.small_buttonModal}>
+              <Button
+                title = 'SALVAR'      
+                color={'#122209'}
+                onPress={onSave}
+              />
+            </View>
+            <View style={styles.small_buttonModal}>
+            <Button
+                title = 'FECHAR'      
+                color={'#122209'}
+                onPress={onClose}
+              />
+            </View>
+
           </View>
 
 
@@ -95,7 +103,8 @@ const styles = StyleSheet.create({
   },
   modalHeaderText: {
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 15,
+    marginTop: 15,
   },
   large_inputs_view: {
     alignItems: 'center',
@@ -104,8 +113,8 @@ const styles = StyleSheet.create({
   },
   large_input: {
     width: '100%',
-    marginBottom: 8,
-    marginTop: 8,
+    marginBottom: 20,
+    marginTop: 10,
     borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
   },
   small_input: {
     width: '45%',
-    marginBottom: 8,
+    marginBottom: 20,
     marginTop: 8,
     borderWidth: 1,
     borderTopWidth: 0,
@@ -131,7 +140,18 @@ const styles = StyleSheet.create({
     padding: 5,
     borderBottomWidth: 1.5,
     borderBottomColor: 'black'
+  },
+  button_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  small_buttonModal: {
+    width: '45%',
+    marginBottom: 15,
+    marginTop: 15,
   }
+  
 })
 
 export default CarFormModal;
