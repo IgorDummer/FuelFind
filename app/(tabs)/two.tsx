@@ -136,10 +136,10 @@ export default function TabTwoScreen() {
   
         <View style={styles.small_inputs_view}>
           <TextInput style={styles.small_input}
-            placeholder='Usuário'
+            placeholder='joão3216'
           />
           <TextInput style={styles.small_input}
-            placeholder='Raio de busca'
+            placeholder='Raio de busca: 5 Km'
           />
         </View>
   
