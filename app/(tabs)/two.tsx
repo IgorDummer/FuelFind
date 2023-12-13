@@ -177,17 +177,22 @@ export default function TabTwoScreen() {
             onPress={openModal}
           />
         </View>
-        <CarFormModal
-        isVisible={isModalVisible}
-        onClose={closeModal}
-        carName={newCar.name}
-        setCarName={(text) => setNewCar({ ...newCar, name: text })}
-        fuelType={newCar.combustivel}
-        setFuelType={(value) => setNewCar({ ...newCar, combustivel: value })}
-        fuelConsumption={newCar.consumo.toString()}
-        setFuelConsumption={(text) => setNewCar({ ...newCar, consumo: parseFloat(text) })}
-        onSave={handleAddCar}
-      />
+        {isModalVisible && (
+          <View style={styles.modalBackground}>
+                <CarFormModal
+                isVisible={isModalVisible}
+                onClose={closeModal}
+                carName={newCar.name}
+                setCarName={(text) => setNewCar({ ...newCar, name: text })}
+                fuelType={newCar.combustivel}
+                setFuelType={(value) => setNewCar({ ...newCar, combustivel: value })}
+                fuelConsumption={newCar.consumo.toString()}
+                setFuelConsumption={(text) => setNewCar({ ...newCar, consumo: parseFloat(text) })}
+                onSave={handleAddCar}
+              />
+          </View>
+        )}
+
 
       </View>
 
@@ -200,8 +205,15 @@ export default function TabTwoScreen() {
 
 const styles = StyleSheet.create({
   maxWidth: {
+    flex: 1,
     alignSelf: 'center',
     width: '90%',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // 0.3 controla a opacidade
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     //flex: 1,
@@ -225,11 +237,13 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   large_inputs_view: {
+    //width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white'
   },
   large_input: {
+    //fontSize: 16,
     width: '200%',
     marginBottom: 8,
     marginTop: 8,

@@ -18,7 +18,11 @@ const CarFormModal: FC<CarFormModalProps> = ({ isVisible, onClose, carName, setC
   
 
   return (
-    <Modal visible={isVisible}>
+    <Modal 
+    visible={isVisible}
+    animationType="slide"
+    transparent={true}
+    >
 
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -103,8 +107,8 @@ const styles = StyleSheet.create({
   },
   modalHeaderText: {
     fontSize: 16,
-    marginBottom: 15,
-    marginTop: 15,
+    marginBottom: 20,
+    marginTop: 20,
   },
   large_inputs_view: {
     alignItems: 'center',
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
   },
   large_input: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 30,
     marginTop: 10,
     borderWidth: 1,
     borderTopWidth: 0,
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   },
   small_input: {
     width: '45%',
-    marginBottom: 20,
+    marginBottom: 40,
     marginTop: 8,
     borderWidth: 1,
     borderTopWidth: 0,
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
   },
   small_buttonModal: {
     width: '45%',
-    marginBottom: 15,
+    marginBottom: 30,
     marginTop: 15,
   }
   
