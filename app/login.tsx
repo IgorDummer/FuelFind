@@ -2,8 +2,33 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 
-export default function TabTwoScreen() {
-  return (
+type UserData = {
+  email: string;
+  senha: string;
+};
+
+const Login = ({ navigation }: any): JSX.Element =>{
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [dadosUsuarios, setDadosUsuarios] = useState<UserData[]>([]);
+
+  const realizarLogin = () => {
+    const usuarioEncontrado = dadosUsuarios.find(
+      (user) => user.email === email && user.senha === senha
+    );
+    if (usuarioEncontrado) {
+      // Usuário autenticado, pode prosseguir para a próxima tela ou fazer alguma ação
+      // Por exemplo, pode navegar para outra tela após o login ser bem-sucedido
+      navigation.navigate('index');
+    } else {
+      console.log('Credenciais inválidas');
+    }
+    // Limpando os campos após o login
+    setEmail('');
+    setSenha('');
+  };
+
+  return Login(
     <View style={styles.container}>
 
       <View style={styles.container_title}>
@@ -21,17 +46,20 @@ export default function TabTwoScreen() {
           ENTRAR
         </Text>
         <TextInput style={styles.input}
-          placeholder='Usuário ou e-mail'
+          placeholder='E-mail'
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput style={styles.input}
           placeholder='Senha'
+          onChangeText={(text) => setSenha(text)}
+          secureTextEntry={true}
         />
         <View style={{ marginTop: 15 }}>
           <Button 
             title = 'Entrar'      
             color={'#122209'}
-          
-            //onPress={handleLogin}
+            onPress={realizarLogin}
           />
         </View>
 

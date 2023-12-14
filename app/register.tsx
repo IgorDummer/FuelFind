@@ -2,14 +2,39 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 
-export default function TabTwoScreen() {
+// Definindo o tipo para os dados do usuário
+type UserData = {
+  usuario: string;
+  email: string;
+  senha: string;
+};
+
+const Register = () => {
+  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  // Definindo o estado inicial como um array vazio do tipo UserData
+  const [dadosUsuarios, setDadosUsuarios] = useState<UserData[]>([]);
+
+    const registerUser = () => {
+      const novoUsuario = {
+      usuario: usuario,
+      email: email,
+      senha: senha,
+    };
+    setDadosUsuarios([...dadosUsuarios, novoUsuario]); // Adicionamos novo usuário no vetor de usuários existente
+    // Aqui limpamos os campos após o cadastro
+    setUsuario('');
+    setSenha('');
+  };
+
   return (
     <View style={styles.container}>
 
       <View style={styles.container_title}>
         <Image
           source={require ('../assets/images/white_local_gas_station.png')}
-          //resizeMode="contain"  
         ></Image>
         <Text>
           FuelFind
@@ -22,22 +47,29 @@ export default function TabTwoScreen() {
         </Text>
         <TextInput style={styles.input}
           placeholder='Nome'
+          value={usuario}
+          onChangeText={(text) => setUsuario(text)} // Pegamos o nome que o usuario quer cadastrar
         />
         <TextInput style={styles.input}
           placeholder='Usuário'
         />
         <TextInput style={styles.input}
           placeholder='E-mail'
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput style={styles.input}
           placeholder='Senha'
+          value={senha}
+          onChangeText={(text) => setSenha(text)}
+          secureTextEntry={true}
         />
         <View style={{ marginTop: 15 }}>
           <Button 
             title = 'CRIAR CONTA'      
             color={'#122209'}
+            onPress={registerUser} // Ao clicar no botão criar conta, salvamos os dados dos usuário
           
-            //onPress={handleLogin}
           />
         </View>
         <View lightColor="#1B4203" darkColor="#1B4203" />
@@ -45,7 +77,9 @@ export default function TabTwoScreen() {
       
     </View>
   );
-}
+};
+export default Register;
+
 
 const styles = StyleSheet.create({
   container: {
