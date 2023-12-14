@@ -47,6 +47,26 @@ const postos = [
     ],
     upVotes: 16,
     downVotes: 5,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'Carambolas',
+        usuario: {
+          id: 1,
+          nome: 'marquinhos',
+        },
+        data: '2023-11-10',
+      },
+      {
+        id: 2,
+        texto: 'Eita lasqueira',
+        usuario: {
+          id: 2,
+          nome: 'enzo',
+        },
+        data: '2023-11-10',
+      },
+    ],
   },
   {
     id: 2,
@@ -81,6 +101,35 @@ const postos = [
     ],
     upVotes: 10,
     downVotes: 3,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'To certo',
+        usuario: {
+          id: 1,
+          nome: 'naruto uzumaki',
+        },
+        data: '2023-11-10',
+      },
+      {
+        id: 2,
+        texto: 'Dracarys',
+        usuario: {
+          id: 2,
+          nome: 'Daenerys Targaryen',
+        },
+        data: '2023-11-10',
+      },
+      {
+        id: 3,
+        texto: 'Estou pronto',
+        usuario: {
+          id: 2,
+          nome: 'Bob Esponja',
+        },
+        data: '2023-11-10',
+      },
+    ],
   },
   {
     id: 3,
@@ -115,6 +164,17 @@ const postos = [
     ],
     upVotes: 20,
     downVotes: 10,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'Atendimento excepcional, o café da conveniência é delicioso',
+        usuario: {
+          id: 1,
+          nome: 'jubilantly',
+        },
+        data: '2023-11-10',
+      }, ,
+    ],
   },
   {
     id: 4,
@@ -144,6 +204,17 @@ const postos = [
     ],
     upVotes: 16,
     downVotes: 5,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'Atendimento excepcional, o café da conveniência é delicioso',
+        usuario: {
+          id: 1,
+          nome: 'jubilantly',
+        },
+        data: '2023-11-10',
+      },
+    ],
   },
   {
     id: 5,
@@ -173,6 +244,17 @@ const postos = [
     ],
     upVotes: 10,
     downVotes: 3,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'Atendimento excepcional, o café da conveniência é delicioso',
+        usuario: {
+          id: 1,
+          nome: 'jubilantly',
+        },
+        data: '2023-11-10',
+      },
+    ],
   },
   {
     id: 6,
@@ -207,6 +289,17 @@ const postos = [
     ],
     upVotes: 20,
     downVotes: 10,
+    comentarios: [
+      {
+        id: 1,
+        texto: 'Atendimento excepcional, o café da conveniência é delicioso',
+        usuario: {
+          id: 1,
+          nome: 'jubilantly',
+        },
+        data: '2023-11-10',
+      },
+    ]
   },
 ]
 
@@ -242,7 +335,7 @@ export default function TabOneScreen() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <PostoCard posto={item}
-              onClick={() => router.push(`/postoPage/${item.id}`)}
+              onClick={() => router.push({ pathname: `/postoPage/`, params: { id: item.id } })}
             />
           )}
         />
@@ -257,7 +350,8 @@ export default function TabOneScreen() {
       <FlatList
         data={filteredPostos}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <PostoCard posto={item} />}
+        renderItem={({ item }) => <PostoCard posto={item} onClick={() => router.push({ pathname: `/postoPage/`, params: { id: item.id } })}
+        />}
       />
     );
   };
