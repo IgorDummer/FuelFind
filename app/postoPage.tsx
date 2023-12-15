@@ -29,6 +29,8 @@ interface Posto {
   }[];
   upVotes: number;
   downVotes: number;
+  upVoted?: boolean;
+  downVoted?: boolean;
   comentarios: {
     id: number;
     texto: string;
@@ -44,33 +46,33 @@ interface Posto {
 const postos: Posto[] = [
   {
     id: 1,
-    name: 'Posto Ipiranga',
+    name: 'AUTO POSTO PROGRESSO LTDA',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
       id: 1,
-      cep: '00000-000',
-      estado: 'Estado dos Bobos',
-      cidade: 'Cidade dos Bobos',
-      bairro: 'Bairro dos Bobos',
-      rua: 'Rua dos Bobos',
-      numero: 0,
+      cep: '29153-100',
+      estado: 'Espírito Santo',
+      cidade: 'Cariacica',
+      bairro: 'Porto de Santana',
+      rua: 'Rua principal',
+      numero: 747,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.00,
+        preco: 5.58,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.50,
+        preco: 5.75,
       },
       {
         id: 6,
         tipo: 'Etanol',
-        preco: 3.00,
+        preco: 4.09,
       },
     ],
     upVotes: 16,
@@ -98,33 +100,33 @@ const postos: Posto[] = [
   },
   {
     id: 2,
-    name: 'Posto Shell',
+    name: 'RM 262 COMERCIO DE COMBUSTIVEIS LTDA',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
       id: 2,
-      cep: '00000-000',
+      cep: '29146-012',
       estado: 'Espírito Santo',
       cidade: 'Cariacica',
       bairro: 'Campo Grande',
-      rua: 'Av. Expedito Garcia',
-      numero: 304,
+      rua: 'Avenida Maria Gurgel',
+      numero: 3127,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.24,
+        preco: 5.55,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.94,
+        preco: 5.65,
       },
       {
         id: 4,
         tipo: 'Diesel S500',
-        preco: 3.50,
+        preco: 6.09,
       },
     ],
     upVotes: 10,
@@ -161,33 +163,33 @@ const postos: Posto[] = [
   },
   {
     id: 3,
-    name: 'Posto Petrobras',
+    name: 'POSTO MINEIRO',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
       id: 3,
-      cep: '00000-000',
-      estado: 'Estado dos Bobos',
-      cidade: 'Cidade dos Bobos',
-      bairro: 'Bairro dos Bobos',
-      rua: 'Rua dos Bobos',
-      numero: 0,
+      cep: '29154-200',
+      estado: 'Espírito Santo',
+      cidade: 'Cariacica',
+      bairro: 'Santana',
+      rua: 'Rodovia Governador Jose Henrique Sette',
+      numero: 6174,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.20,
+        preco: 5.55,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.63,
+        preco: 5.57,
       },
       {
         id: 3,
         tipo: 'Diesel S10',
-        preco: 4.00,
+        preco: 6.04,
       },
     ],
     upVotes: 20,
@@ -206,28 +208,28 @@ const postos: Posto[] = [
   },
   {
     id: 4,
-    name: 'Posto Ipiranga',
+    name: 'POSTO PALACIO',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
-      id: 1,
-      cep: '00000-000',
-      estado: 'Estado dos Bobos',
-      cidade: 'Cidade dos Bobos',
-      bairro: 'Bairro dos Bobos',
-      rua: 'Rua dos Bobos',
+      id: 3,
+      cep: '29140-580',
+      estado: 'Espírito Santo',
+      cidade: 'Cariacica',
+      bairro: 'Vasco Da Gama',
+      rua: 'Rua Eurico Gaspar Dutra',
       numero: 0,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.00,
+        preco: 5.39,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.50,
+        preco: 5.39,
       },
     ],
     upVotes: 16,
@@ -246,28 +248,28 @@ const postos: Posto[] = [
   },
   {
     id: 5,
-    name: 'Posto Shell',
+    name: 'AUTO SERVICO SAO CRISTOVAO LTDA',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
       id: 2,
-      cep: '00000-000',
+      cep: '29147-345',
       estado: 'Espírito Santo',
       cidade: 'Cariacica',
-      bairro: 'Campo Grande',
-      rua: 'Av. Expedito Garcia',
-      numero: 304,
+      bairro: 'Dom Bosco',
+      rua: 'Avenida Mario Gurgel',
+      numero: 4,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.24,
+        preco: 5.58,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.94,
+        preco: 5.62,
       },
     ],
     upVotes: 10,
@@ -286,33 +288,33 @@ const postos: Posto[] = [
   },
   {
     id: 6,
-    name: 'Posto Petrobras',
+    name: 'Posto Jardim America do Gas ltda',
     localizacaoX: 0,
     localizacaoY: 0,
     endereco: {
       id: 3,
-      cep: '00000-000',
-      estado: 'Estado dos Bobos',
-      cidade: 'Cidade dos Bobos',
-      bairro: 'Bairro dos Bobos',
-      rua: 'Rua dos Bobos',
-      numero: 0,
+      cep: '29140-080',
+      estado: 'Espirito Santo',
+      cidade: 'Cariacica',
+      bairro: 'Jardim America',
+      rua: 'Avenidade Espirito Santo',
+      numero: 87,
     },
     combustiveis: [
       {
         id: 1,
         tipo: 'Gasolina Comum',
-        preco: 5.20,
+        preco: 5.55,
       },
       {
         id: 2,
         tipo: 'Gasolina Aditivada',
-        preco: 5.63,
+        preco: 5.70,
       },
       {
         id: 3,
         tipo: 'Diesel S10',
-        preco: 4.00,
+        preco: 5.99,
       },
     ],
     upVotes: 20,
@@ -357,6 +359,56 @@ export default function PostoPage() {
     }
   }, [idParam]);
 
+  const [upVoted, setUpVoted] = useState(false);
+  const [downVoted, setDownVoted] = useState(false);
+
+  const [hasUpVoted, setHasUpVoted] = useState(false);
+  const [hasDownVoted, setHasDownVoted] = useState(false);
+
+  useEffect(() => {
+    setUpVoted(false);
+    setDownVoted(false);
+  }, [idParam]);
+
+
+  const handleVote = (action: 'up' | 'down') => {
+    setPosto((prevPosto) => {
+      if (prevPosto) {
+        if (action === 'up') {
+          if(hasUpVoted){
+            setHasUpVoted(true)
+            return { ...prevPosto}
+          }
+          else if(hasDownVoted){
+            setHasDownVoted(false)
+            setHasUpVoted(true)
+            return { ...prevPosto, upVotes: prevPosto.upVotes + 1, downVotes: prevPosto.downVotes - 1 }
+          }
+          else{
+            setHasUpVoted(true)
+            return { ...prevPosto, upVotes: prevPosto.upVotes + 1 };
+          }
+        } else if (action === 'down') {
+          if(hasUpVoted){
+            setHasUpVoted(false)
+            setHasDownVoted(true)
+            return { ...prevPosto, upVotes: prevPosto.upVotes - 1, downVotes: prevPosto.downVotes + 1 }
+          }
+          else if(hasDownVoted){
+            setHasDownVoted(true)
+            return { ...prevPosto}
+          }
+          else{
+            setHasDownVoted(true)
+            return { ...prevPosto, downVotes: prevPosto.downVotes + 1 };
+          }
+        }
+      }
+      return prevPosto;
+    });
+  };
+  
+
   return (
     (posto === null) ? <View style={styles.container}>
       <View style={styles.container_title}>
@@ -390,16 +442,20 @@ export default function PostoPage() {
                 <Text style={styles.postoName}>{posto.name}</Text>
                 {/* Adicionei uma View para envolver os ícones de votos e o texto */}
                 <View style={styles.voteIcons}>
-                  <Image
-                    style={{ tintColor: '#84CC16', width: 20, height: 20 }}
-                    source={require('../assets/images/arrow_up.svg')}
-                  />
-                  <Text style={[styles.voteText, { color: '#84CC16', fontWeight: 'bold' }]}>{posto?.upVotes}</Text>
-                  <Image
-                    style={{ tintColor: '#B91C1C', width: 20, height: 20 }}
-                    source={require('../assets/images/arrow_down.svg')}
-                  />
-                  <Text style={[styles.voteText, { color: '#B91C1C' }]}>{posto?.downVotes}</Text>
+                <TouchableOpacity onPress={() => handleVote('up')} disabled={upVoted}>
+                    <Image
+                      style={{ tintColor: upVoted ? '#84CC16' : '#65a30d', width: 20, height: 20 }}
+                      source={require('../assets/images/arrow_up.svg')}
+                    />
+                  </TouchableOpacity>
+                  <Text style={[styles.voteText, { color: upVoted ? '#84CC16' : '#65a30d', fontWeight: 'bold' }]}>{posto?.upVotes}</Text>
+                  <TouchableOpacity onPress={() => handleVote('down')} disabled={downVoted}>
+                    <Image
+                      style={{ tintColor: downVoted ? '#B91C1C' : '#991b1b', width: 20, height: 20 }}
+                      source={require('../assets/images/arrow_down.svg')}
+                    />
+                  </TouchableOpacity>
+                  <Text style={[styles.voteText, { color: downVoted ? '#B91C1C' : '#991b1b' }]}>{posto?.downVotes}</Text>
                 </View>
               </View>
             </View>

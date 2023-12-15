@@ -2,33 +2,46 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image, TextInput, Button, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 
+import { useRouter } from 'expo-router';
+
 type UserData = {
   email: string;
   senha: string;
 };
 
-const Login = ({ navigation }: any): JSX.Element =>{
+const usurarioMock = {
+  email: 'joaoneves@email.com',
+  senha: 'Senha123'
+}
+
+const Login = () =>{
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [dadosUsuarios, setDadosUsuarios] = useState<UserData[]>([]);
+  const [dadosUsuarios, setDadosUsuarios] = useState(usurarioMock);
+  const [avisoSenhaIncorreta, setAvisoSenhaIncorreta] = useState(false); // Novo estado
+
+  const router = useRouter();
 
   const realizarLogin = () => {
-    const usuarioEncontrado = dadosUsuarios.find(
-      (user) => user.email === email && user.senha === senha
-    );
-    if (usuarioEncontrado) {
-      // Usuário autenticado, pode prosseguir para a próxima tela ou fazer alguma ação
-      // Por exemplo, pode navegar para outra tela após o login ser bem-sucedido
-      navigation.navigate('index');
+    if (dadosUsuarios.email === email && dadosUsuarios.senha === senha) {
+      setTimeout(() => {
+        router.push('/');
+      }, 300);
+      setSenha('');
+      setEmail('');
     } else {
-      console.log('Credenciais inválidas');
-    }
-    // Limpando os campos após o login
-    setEmail('');
-    setSenha('');
+      console.warn('Credenciais inválidas');
+      setAvisoSenhaIncorreta(true);
+      setSenha('');
+       setEmail('');
+    } 
+    
   };
 
-  return Login(
+
+
+
+  return(
     <View style={styles.container}>
 
       <View style={styles.container_title}>
@@ -62,13 +75,18 @@ const Login = ({ navigation }: any): JSX.Element =>{
             onPress={realizarLogin}
           />
         </View>
+        {avisoSenhaIncorreta && (
+          <Text style={{ color: 'red', textAlign: 'center', marginTop: 15 }}>
+            Senha incorreta {'\n'}
+            Por favor, tente novamente.
+          </Text>
+        )}
 
-
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setTimeout(() => router.push('/change_password'), 300)}>
           <Text style={styles.text}>Esqueci minha senha</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setTimeout(() => router.push('/register'), 300)}>
           <Text style={styles.text}>Criar conta</Text>
         </TouchableOpacity>
 
@@ -77,7 +95,8 @@ const Login = ({ navigation }: any): JSX.Element =>{
       
     </View>
   );
-}
+};
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -119,5 +138,5 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 15,
     textDecorationLine: 'underline'
-  }
+  },
 });
