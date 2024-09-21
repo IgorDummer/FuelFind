@@ -39,7 +39,7 @@ Aqui estão algumas ferramentas que foram utilizadas:
 
 ## 🎨 Prototipagem
 
-Protótipo feito no [Figma](https://www.figma.com/file/cjikfBTqA1NsZk6FehgtCq/trab-pi-2?type=design&node-id=0%3A1&mode=design&t=F36qnULn7uEZbcLn-1)
+Protótipo feito no [Figma](https://www.figma.com/design/AVMiIjNqN3T1uYX6FsP3Bm/FuelFind?node-id=1-443&t=k2uKkiJBZslKXhN9-1)
 
 ### 🔎 Utilizando o app
 
